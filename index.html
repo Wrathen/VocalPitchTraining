@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta name="generator" content="Hugo 0.99.1" />
+    <title>Vocal Pitch Training</title>
+    <link rel="shortcut icon" href="https://alexanderell.is/images/favicon.ico">
+    <link rel="stylesheet" href="https://alexanderell.is/css/style.css">
+    <link rel="stylesheet" href="https://alexanderell.is/css/highlight.css">
+    <link rel="stylesheet" href="https://alexanderell.is/css/font-awesome.min.css">
+</head>
+<body>
+    <section id="wrapper">
+        <article class="post">
+            <section id="post-body">
+                <p><canvas class="visualizer" width="1080" height="800"></canvas></p>
+                <h1 id="note">Press start to begin</h1>
+                <legend>Rounding options:</legend>
+                <div>
+                    <input type="radio" id="roundingNone" name="rounding" value="none">
+                    <label for="roundingNone">No rounding</label>
+                    <br>
+                    <input type="radio" id="roundingMedium" name="rounding" value="hz" checked>
+                    <label for="roundingMedium">Round to nearest Hz</label>
+                    <br>
+                    <input type="radio" id="roundingHard" name="rounding" value="note">
+                    <label for="roundingHard">Round to nearest note</label>
+                    <br>
+                </div>
+                <br>
+                <legend>Smoothing options:</legend>
+                <div>
+                    <input type="radio" id="smoothingNone" name="smoothing" value="none">
+                    <label for="smoothingNone">No smoothing</label>
+                    <br>
+                    <input type="radio" id="smoothingMedium" name="smoothing" value="basic" checked>
+                    <label for="smoothingMedium">Basic smoothing</label>
+                    <br>
+                    <input type="radio" id="smoothingHard" name="smoothing" value="very">
+                    <label for="smoothingHard">Very smoothed (note must be more consistent and held for longer)</label>
+                    <br>
+                </div>
+                <script src="tuner.js"></script>
+            </section>
+        </article>
+    </section>
+
+    <script src="https://alexanderell.is/js/jquery-2.2.4.min.js"></script>
+    <script src="main.js"></script>
+    <script src="https://alexanderell.is/js/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+</body>
+</html>
