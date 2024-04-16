@@ -4,6 +4,7 @@ var canvas;
 var canvasContext;
 var WIDTH;
 var HEIGHT;
+var drawNoteVisual = -1;
 
 var noteStrings = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
 function noteFromPitch(frequency) {
@@ -51,9 +52,6 @@ function init() {
     }
 
     // Visualizing, copied from voice change o matic
-    canvas = document.querySelector('.visualizer');
-    canvasContext = canvas.getContext("2d");
-
     function visualize() {
         WIDTH = canvas.width;
         HEIGHT = canvas.height;
@@ -73,9 +71,9 @@ function init() {
             // Handle rounding
             var roundingValue = document.querySelector('input[name="rounding"]:checked').value
             var smoothingValue = document.querySelector('input[name="smoothing"]:checked').value
-            var valueToDisplay = roundingValue == 'hz'   ? Math.round(autoCorrelateValue) : 
-                                 roundingValue != 'none' ? noteStrings[noteFromPitch(autoCorrelateValue) % 12] :
-                                                           autoCorrelateValue; 
+            var valueToDisplay = roundingValue == 'hz' ? Math.round(autoCorrelateValue) :
+                roundingValue != 'none' ? noteStrings[noteFromPitch(autoCorrelateValue) % 12] :
+                    autoCorrelateValue;
 
             if (autoCorrelateValue === -1) {
                 document.getElementById('note').innerText = 'Too quiet...';
@@ -151,12 +149,16 @@ function init() {
             drawFlatterino();
         }
 
+        canvas = document.querySelector('.visualizer');
+        canvasContext = canvas.getContext("2d");
+
         drawFlat();
         drawNote();
     }
 }
 
 function drawTargetHZ(targetHZ) {
+    if (!canvasContext) return;
     canvasContext.fillStyle = 'rgb(20,255,20)';
     canvasContext.fillRect(0, canvas.height - targetHZ, canvas.width, 2);
     canvasContext.font = "32px serif";
