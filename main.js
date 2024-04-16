@@ -260,4 +260,4 @@ function drawRandomHZ() {
     drawTargetHZ(randomHZ);
 }
 
-init();
+setTimeout(init, 2000);
