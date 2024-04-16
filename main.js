@@ -154,6 +154,12 @@ function init() {
 
         drawFlat();
         drawNote();
+
+        drawRandomHZ();
+        setInterval(() => {
+            randomHZ = 70 + (Math.random() * 500) | 0;
+            play(randomHZ, 8000);
+        }, 8000);
     }
 }
 
@@ -255,11 +261,3 @@ function drawRandomHZ() {
 }
 
 init();
-setTimeout(
-    () => {
-        drawRandomHZ();
-        setInterval(() => {
-            randomHZ = 70 + (Math.random() * 500) | 0;
-            play(randomHZ, 8000);
-        }, 8000);
-    }, 1000);
