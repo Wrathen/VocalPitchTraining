@@ -61,20 +61,13 @@ function init() {
                 }
             )
             .catch(function (err) {
+                console.log(err);
                 alert('Sorry, microphone permissions are required for the app. Feel free to read on without playing :)')
             });
     }
 
     // Visualizing, copied from voice change o matic
     function visualize() {
-        WIDTH = canvas.width;
-        HEIGHT = canvas.height;
-
-        var previousValueToDisplay = 0;
-        var smoothingCount = 0;
-        var smoothingThreshold = 5;
-        var smoothingCountThreshold = 5;
-
         var drawNote = function () {
             drawNoteVisual = requestAnimationFrame(drawNote);
             var bufferLength = analyser.fftSize;
@@ -165,6 +158,14 @@ function init() {
 
         canvas = document.querySelector('.visualizer');
         canvasContext = canvas.getContext("2d");
+
+        WIDTH = canvas.width;
+        HEIGHT = canvas.height;
+
+        var previousValueToDisplay = 0;
+        var smoothingCount = 0;
+        var smoothingThreshold = 5;
+        var smoothingCountThreshold = 5;
 
         drawFlat();
         drawNote();
