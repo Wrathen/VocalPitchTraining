@@ -5,6 +5,7 @@ var canvasContext;
 var WIDTH;
 var HEIGHT;
 var drawNoteVisual = -1;
+let randomHZ = 70 + (Math.random() * 500) | 0;
 
 var noteStrings = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
 function noteFromPitch(frequency) {
@@ -22,6 +23,19 @@ const play = (frequency = 300, duration = 1e3) => {
     oscillator.start(0);
     setTimeout(() => oscillator.stop(), duration);
 };
+
+function drawTargetHZ(targetHZ) {
+    if (!canvasContext) return;
+    canvasContext.fillStyle = 'rgb(20,255,20)';
+    canvasContext.fillRect(0, canvas.height - targetHZ, canvas.width, 2);
+    canvasContext.font = "32px serif";
+    canvasContext.fillText(noteStrings[noteFromPitch(targetHZ) % 12] + " (" + targetHZ + "hz)", 0, canvas.height - targetHZ);
+}
+
+function drawRandomHZ() {
+    requestAnimationFrame(drawRandomHZ);
+    drawTargetHZ(randomHZ);
+}
 
 function init() {
     var source;
@@ -163,14 +177,6 @@ function init() {
     }
 }
 
-function drawTargetHZ(targetHZ) {
-    if (!canvasContext) return;
-    canvasContext.fillStyle = 'rgb(20,255,20)';
-    canvasContext.fillRect(0, canvas.height - targetHZ, canvas.width, 2);
-    canvasContext.font = "32px serif";
-    canvasContext.fillText(noteStrings[noteFromPitch(targetHZ) % 12] + " (" + targetHZ + "hz)", 0, canvas.height - targetHZ);
-}
-
 function autoCorrelate(buffer, sampleRate) {
     // Perform a quick root-mean-square to see if we have enough signal
     var SIZE = buffer.length;
@@ -252,12 +258,6 @@ function autoCorrelate(buffer, sampleRate) {
     }
 
     return sampleRate / T0;
-}
-
-let randomHZ = 70 + (Math.random() * 500) | 0;
-function drawRandomHZ() {
-    requestAnimationFrame(drawRandomHZ);
-    drawTargetHZ(randomHZ);
 }
 
 setTimeout(init, 2000);
